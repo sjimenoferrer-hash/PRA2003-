@@ -1,4 +1,5 @@
 # PRA2003 - Simulating molecular emissions in a combustion reaction
+
 ## Silvia Jimeno Ferrer - I6377278 
 **Answer the following questions**
 1. What are the average counts of each molecular species and their statistical uncertainties?

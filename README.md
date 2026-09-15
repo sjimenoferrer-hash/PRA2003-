@@ -7,11 +7,11 @@ This is a chemistry-themed exercise simulating molecular emissions in a combusti
 
 ## Input Structure
 Each input file follows this format:
-**Header line** (first line of the file contains):
-- **Event ID**: the ID of the experiment or simulation run
-- **Number of molecules tracked**: the total number of molecules observed in this run
+**Header line** (First line of the file) it contains: 
+  - **Event ID**: the ID of the experiment or simulation run
+  - **Number of molecules tracked**: the total number of molecules observed in this run
 
-**Data lines** (one per molecule, following the header):
+**Data lines** (There is one per molecule, following the header):
 - **3D momentum components** — `px`, `py`, `pz` (in units of 10⁻²³ kg·m/s)
 - **Molecule/Isotope ID** — an integer ID identifying the molecule or isotope
 

@@ -29,11 +29,11 @@ Needs Python 3 (tested with Python 3 on macOS). No additional packages are requi
 
 To run:
 
-1. Download the data files (`output-Set0.txt`, `output-Set1.txt` ... `output-Set10.txt`, about 5 million events in total) and put them in the same folder as the scripts. The data files are not included in this repository because they are too large for GitHub.
+1. Download the data files (`output-Set1.txt` ... `output-Set10.txt`, about 5 million events in total) and put them in the same folder as the scripts. The data files are not included in this repository because they are too large for GitHub. (`output-Set0.txt` is not needed: it only contains one event and is not used in the analysis.)
 2. Open that folder in VS Code, or open a terminal in that folder (the data files must be in the folder you run the script from).
 3. Depending on what you want to run:
    - Only one dataset, week 3 version: `python3 "week 3 deliverable.py"` will ask you to type a filename, for example `output-Set1.txt` (type only one file name).
-   - ALL 11 datasets combined, week 4: `python3 "week 4 deliverable.py"` runs automatically, no input needed, just needs the 11 data files in the same folder. It prints in tables the results for questions 1 and 2.
+   - ALL 10 datasets combined, week 4: `python3 "week 4 deliverable.py"` runs automatically, no input needed, just needs the 10 data files in the same folder. It prints in tables the results for questions 1 and 2.
 
 ## Files
 
@@ -41,7 +41,7 @@ To run:
 |---|---|
 | `code week 2` | Week 2 exercise: first steps reading the data file. |
 | `week 3 deliverable.py` | Reads one data file (the user types the file name) and calculates the average count of each molecule per event and its statistical uncertainty |
-| `week 4 deliverable.py` | Runs all 11 datasets (`output-Set0.txt` to `output-Set10.txt`) combined. Calculates the average count of each molecule per event with the uncertainty from the sub-sampling method (each file is one sub-sample), and checks the asymmetry between each normal molecule and its variant. **This is the version for the week 4 deliverable.** |
+| `week 4 deliverable.py` | Runs all 10 datasets (`output-Set1.txt` to `output-Set10.txt`) combined. Calculates the average count of each molecule per event with the uncertainty from the sub-sampling method (each file is one sub-sample), and checks the asymmetry between each normal molecule and its variant. **This is the version for the week 4 deliverable.** |
 | `README.md` | This file. |
 
 ## The molecules
@@ -59,7 +59,7 @@ Each molecule has an ID number. A **positive** ID is the normal molecule and the
 
 ## How the code works (step by step)
 
-1. **Open the files one by one.** A `for` loop goes over the numbers 0 to 10 and builds the file names (`output-Set0.txt`, `output-Set1.txt`, ...). If a file is missing, the program prints an error and stops.
+1. **Open the files one by one.** A `for` loop goes over the numbers 0 to 10 and builds the file names (`output-Set1.txt`, `output-Set2.txt`, ...). If a file is missing, the program prints an error and stops.
 2. **Read the events.** For every event the program reads the header line to know how many molecule lines follow, and then reads those lines.
 3. **Count the molecules.** For every molecule line it takes the ID (the 4th column). If the ID is one of the 12 molecules in the table above, the count for that molecule goes up by 1.
 4. **Check for mistakes in the data.** The program checks that:
@@ -95,13 +95,13 @@ $$
 
 ### Uncertainty (sub-sampling method)
 
-For the uncertainty the data is split into smaller groups, called sub-samples. In this code **every file is one sub-sample**, so there are **K = 11** sub-samples.
+For the uncertainty the data is split into smaller groups, called sub-samples. In this code **every file is one sub-sample**, so there are **K = 10** sub-samples.
 
-1. The average of the molecule is calculated in each file separately, giving 11 averages: a1, a2, ..., a11.
-2. The spread of these 11 averages is calculated (the sample variance, dividing by K - 1):
+1. The average of the molecule is calculated in each file separately, giving 10 averages: a1, a2, ..., a10.
+2. The spread of these 10 averages is calculated (the sample variance, dividing by K - 1):
 
 ```
-mean of the averages = (a1 + a2 + ... + a11) / K
+mean of the averages = (a1 + a2 + ... + a10) / K
 
 variance = sum of (ai - mean of the averages)^2 / (K - 1)
 ```
@@ -122,9 +122,9 @@ s^2 = \frac{1}{K-1}\sum_{k=1}^{K}\left(a_k - \bar{a}\right)^2
 \sigma = \sqrt{\frac{s^2}{K}} = \frac{s}{\sqrt{K}}
 $$
 
-**Example (carbon monoxide):** the 11 file averages of carbon monoxide have a spread (standard deviation) of about s = 0.109. The uncertainty is then 0.109 / √11 = 0.109 / 3.32 ≈ **0.033**.
+**Example (carbon monoxide):** the 10 file averages of carbon monoxide have a spread (standard deviation) of about s = 0.109. The uncertainty is then 0.104 / √10 = 0.104 / 3.16 ≈ 0.033
 
-The idea is simple: if the 11 files give very similar averages, the result is precise and the uncertainty is small. If they are very different, the uncertainty is bigger.
+The idea is simple: if the 10 files give very similar averages, the result is precise and the uncertainty is small. If they are very different, the uncertainty is bigger.
 
 ### Results
 
@@ -167,13 +167,13 @@ If there is no asymmetry, the difference should be close to 0.
 
 ### Uncertainty of the difference
 
-The normal molecule and its variant come from the same events, so when one goes up in a file, the other usually goes up too. This is measured with the **correlation coefficient r** between their 11 file averages (r = 1 means they always go up and down together, r = 0 means they are not related). The uncertainty of the difference takes this into account:
+The normal molecule and its variant come from the same events, so when one goes up in a file, the other usually goes up too. This is measured with the **correlation coefficient r** between their 10 file averages (r = 1 means they always go up and down together, r = 0 means they are not related). The uncertainty of the difference takes this into account:
 
 ```
 uncertainty of difference = sqrt(unc_normal^2 + unc_variant^2 - 2 * r * unc_normal * unc_variant)
 ```
 
-The correlation r is calculated from the 11 file averages of the normal molecule ($a_k$) and of the variant ($b_k$):
+The correlation r is calculated from the 10 file averages of the normal molecule ($a_k$) and of the variant ($b_k$):
 
 $$
 r = \frac{\sum_{k}(a_k - \bar{a})(b_k - \bar{b})}{\sqrt{\sum_{k}(a_k - \bar{a})^2 \, \sum_{k}(b_k - \bar{b})^2}}

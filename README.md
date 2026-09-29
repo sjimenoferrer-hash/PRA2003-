@@ -242,10 +242,10 @@ $$
 
 ### Conclusion
 
-In all pairs the normal molecule is a bit more common than its variant. For **carbon monoxide** (7.2 sigma), **water** (10.1 sigma) and **methane** (8.4 sigma) this difference is bigger than 3 sigma, so there **is** a significant asymmetry. For **nitric oxide**, **ethylene** and **ozone** the difference is smaller than 2 sigma, so it could just be a random fluctuation and we **cannot** say there is an asymmetry.
+In all pairs the normal molecule is a bit more common than its variant. For **water** (10.1 sigma),**methane** (8.4 sigma), **carbon monoxide** (7.2 sigma), and  this difference is bigger than 3 sigma, so there is a significant asymmetry. For **nitric oxide**, **ethylene** and **ozone** the difference is smaller than 2 sigma, so it could just be a random fluctuation and we **can't** say there is an asymmetry.
 
 ---
 
 ## Question 3: asymmetry as a function of momentum
 
-This question will be answered next week. The current code only uses the molecule ID (4th column) and does not use the momentum values yet (`px`, `py`, `pz`). 
+This question will be answered next week. The current code only uses the molecule ID (4th column) and does not use the momentum values (`px`, `py`, `pz`). 

@@ -1,19 +1,19 @@
 # PRA2003 - Simulating molecular emissions in a combustion reaction
 
-## Silvia Jimeno Ferrer - I6377278 
+## Silvia Jimeno Ferrer - I6377278
 
 ## Scenario
 This is a chemistry-themed exercise simulating molecular emissions in a combustion reaction. Each file represents a single simulation of molecular species produced during combustion at high temperatures.
 
 ## Input Structure
 Each input file follows this format:
-**Header line** (First line of the file) it contains: 
+**Header line** (first line of each event) it contains:
   - **Event ID**: the ID of the experiment or simulation run
   - **Number of molecules tracked**: the total number of molecules observed in this run
 
-**Data lines** (There is one per molecule, following the header):
-- **3D momentum components** — `px`, `py`, `pz` (in units of 10⁻²³ kg·m/s)
-- **Molecule/Isotope ID** — an integer ID identifying the molecule or isotope
+**Data lines** (there is one per molecule, following the header):
+- **3D momentum components**: `px`, `py`, `pz` (in units of 10⁻²³ kg·m/s)
+- **Molecule/Isotope ID**: an integer ID identifying the molecule or isotope
 
 ---
 **Goal: Answer the following questions**
@@ -25,7 +25,11 @@ Each input file follows this format:
 
 ## Installation and usage
 
-Needs Python 3 (tested with Python 3 on macOS). No additional packages are required: the only module used is `math`, which already comes with Python.
+Needs Python 3 (tested with Python 3 on macOS). The week 3 and week 4 scripts only use `math`, which already comes with Python. The final script (question 3) also needs `numpy` and `matplotlib`:
+
+```bash
+python3 -m pip install numpy matplotlib
+```
 
 To run:
 
@@ -33,20 +37,24 @@ To run:
 2. Open that folder in VS Code, or open a terminal in that folder (the data files must be in the folder you run the script from).
 3. Depending on what you want to run:
    - Only one dataset, week 3 version: `python3 "week 3 deliverable.py"` will ask you to type a filename, for example `output-Set1.txt` (type only one file name).
-   - ALL 10 datasets combined, week 4: `python3 "week 4 deliverable.py"` runs automatically, no input needed, just needs the 10 data files in the same folder. It prints in tables the results for questions 1 and 2.
+   - ALL 10 datasets combined, week 4: `python3 "week 4 deliverable.py"` runs automatically, no input needed. It prints in tables the results for questions 1 and 2.
+   - Asymmetry as a function of momentum, final version: `python3 "final code practical.py"` runs automatically and saves the figures.
 
 ## Files
 
 | File | Description |
 |---|---|
-| `code week 2` | Week 2 exercise: first steps reading the data file. |
-| `week 3 deliverable.py` | Reads one data file (the user types the file name) and calculates the average count of each molecule per event and its statistical uncertainty |
-| `week 4 deliverable.py` | Runs all 10 datasets (`output-Set1.txt` to `output-Set10.txt`) combined. Calculates the average count of each molecule per event with the uncertainty from the sub-sampling method (each file is one sub-sample), and checks the asymmetry between each normal molecule and its variant. **This is the version for the week 4 deliverable.** |
+| `week 2.py` | Week 2 exercise: first steps reading the data file. |
+| `week 3 deliverable.py` | Reads one data file (the user types the file name) and calculates the average count of each molecule per event and its statistical uncertainty. |
+| `week 4 deliverable.py` | Runs all 10 datasets combined. Calculates the average count of each molecule per event with the uncertainty from the sub-sampling method (each file is one sub-sample), and checks the asymmetry between each normal molecule and its variant. **Answers questions 1 and 2.** |
+| `final code practical.py` | Calculates the asymmetry as a function of momentum and saves the figure. **Answers question 3.** |
+| `All IDs - asymmetry as a fucntion of mometu<REST-OF-FILE-NAME>` | Figure with the asymmetry as a function of momentum, one panel per pair. |
+| `All IDS - mometum distribution.jpeg`, `All IDs momentum distribution - no file 10.png` | Figures with the momentum spectrum (dN/dP) of the normal and the variant molecule, with and without the file that differs. |
 | `README.md` | This file. |
 
 ## The molecules
 
-Each molecule has an ID number. A **positive** ID is the normal molecule and the **negative** ID which is its variant.
+Each molecule has an ID number. A **positive** ID is the normal molecule and the **negative** ID is its variant.
 
 | ID | Normal molecule | ID | Variant |
 |---:|---|---:|---|
@@ -57,74 +65,25 @@ Each molecule has an ID number. A **positive** ID is the normal molecule and the
 | 3312 | Ethylene (C2H4) | -3312 | Ionised ethylene (C2H3-) |
 | 3334 | Ozone (O3) | -3334 | Superoxide anion (O2-) |
 
-## How the code works (step by step)
+## How the code works
 
-1. **Open the files one by one.** A `for` loop goes over the numbers 0 to 10 and builds the file names (`output-Set1.txt`, `output-Set2.txt`, ...). If a file is missing, the program prints an error and stops.
-2. **Read the events.** For every event the program reads the header line to know how many molecule lines follow, and then reads those lines.
-3. **Count the molecules.** For every molecule line it takes the ID (the 4th column). If the ID is one of the 12 molecules in the table above, the count for that molecule goes up by 1.
-4. **Check for mistakes in the data.** The program checks that:
-   - If the header line has 2 values
-   - If the number of molecules is a whole number and not negative
-   - If every molecule line has 4 values and the ID is a whole number
-   - If the file does not end in the middle of an event
+All scripts follow the same steps:
 
-   If a molecule line is broken it is skipped. If a header line is broken, the program stops reading that file.
-5. **Skip empty events.** Events with 0 molecules are skipped and counted separately, like in week 3.
-6. **Save the results of each file.** When a file is finished, the program saves the average of each molecule in that file (this is used for the sub-sampling) and adds the counts to the total.
-7. **Calculate and print the answers** to questions 1 and 2 (explained below).
+1. **Read the files.** The program opens the files one by one. If a file is missing, it prints an error and stops.
+2. **Read the events.** For every event it reads the header line to know how many molecule lines follow, and then reads those lines.
+3. **Check for mistakes in the data.** Broken molecule lines are skipped, and a broken header stops the reading of that file.
+4. **Skip empty events.** Events with 0 molecules are skipped and not counted as events.
+5. **Sub-samples.** Every file is one sub-sample (10 in total). Everything is calculated in each file separately, and the spread between the 10 files is used for the statistical uncertainty.
 
 ---
 
 ## Question 1: average counts and uncertainties
 
-### Average per event
+**File:** `week 4 deliverable.py` (the week 3 script gives the same calculation for one file).
 
-The average of a molecule is the total number of that molecule found in all files, divided by the total number of events:
+**Method:** The program counts how many times each molecule appears in every file and divides by the number of events in that file. This gives 10 averages for each molecule. The final average is the total count divided by the total number of events. The uncertainty comes from the spread of the 10 file averages (sub-sampling method): the standard deviation of the 10 values divided by √10, which is the precision of the average.
 
-```
-average = total count of the molecule / total number of events
-```
-
-As a math formula, with $n_i$ the number of that molecule in event $i$ and $N$ the total number of events:
-
-$$
-\bar{n} = \frac{1}{N}\sum_{i=1}^{N} n_i
-$$
-
-**Example (carbon monoxide):** 92,126,688 molecules were found in about 4.62 million events, so the average is 92,126,688 / 4,618,000 ≈ **19.95** molecules per event.
-
-### Uncertainty (sub-sampling method)
-
-For the uncertainty the data is split into smaller groups, called sub-samples. In this code **every file is one sub-sample**, so there are **K = 10** sub-samples.
-
-1. The average of the molecule is calculated in each file separately, giving 10 averages: a1, a2, ..., a10.
-2. The spread of these 10 averages is calculated (the sample variance, dividing by K - 1):
-
-```
-mean of the averages = (a1 + a2 + ... + a10) / K
-
-variance = sum of (ai - mean of the averages)^2 / (K - 1)
-```
-
-3. The uncertainty on the average is:
-
-```
-uncertainty = sqrt(variance / K)
-```
-
-As math formulas, with $a_k$ the average in file $k$:
-
-$$
-\bar{a} = \frac{1}{K}\sum_{k=1}^{K} a_k
-\qquad
-s^2 = \frac{1}{K-1}\sum_{k=1}^{K}\left(a_k - \bar{a}\right)^2
-\qquad
-\sigma = \sqrt{\frac{s^2}{K}} = \frac{s}{\sqrt{K}}
-$$
-
-**Example (carbon monoxide):** the 10 file averages of carbon monoxide have a spread (standard deviation) of about s = 0.109. The uncertainty is then 0.104 / √10 = 0.104 / 3.16 ≈ 0.033
-
-The idea is simple: if the 10 files give very similar averages, the result is precise and the uncertainty is small. If they are very different, the uncertainty is bigger.
+**Example (carbon monoxide):** 92,126,688 molecules were found in about 4.62 million events, so the average is about 19.95 molecules per event.
 
 ### Results
 
@@ -149,85 +108,9 @@ The idea is simple: if the 10 files give very similar averages, the result is pr
 
 ## Question 2: asymmetry between the normal and the variant molecule
 
-To see if there is an asymmetry, the normal molecule is compared with its variant (for example carbon monoxide with carbon-13 monoxide).
+**File:** `week 4 deliverable.py`
 
-### Difference
-
-```
-difference = average(normal) - average(variant)
-```
-
-$$
-\Delta = \bar{n}_{normal} - \bar{n}_{variant}
-$$
-
-**Example (carbon monoxide):** 19.949508 − 19.917211 = **0.0323**
-
-If there is no asymmetry, the difference should be close to 0.
-
-### Uncertainty of the difference
-
-The normal molecule and its variant come from the same events, so when one goes up in a file, the other usually goes up too. This is measured with the **correlation coefficient r** between their 10 file averages (r = 1 means they always go up and down together, r = 0 means they are not related). The uncertainty of the difference takes this into account:
-
-```
-uncertainty of difference = sqrt(unc_normal^2 + unc_variant^2 - 2 * r * unc_normal * unc_variant)
-```
-
-The correlation r is calculated from the 10 file averages of the normal molecule ($a_k$) and of the variant ($b_k$):
-
-$$
-r = \frac{\sum_{k}(a_k - \bar{a})(b_k - \bar{b})}{\sqrt{\sum_{k}(a_k - \bar{a})^2 \, \sum_{k}(b_k - \bar{b})^2}}
-$$
-
-and the uncertainty of the difference is:
-
-$$
-\sigma_\Delta = \sqrt{\sigma_{normal}^2 + \sigma_{variant}^2 - 2\,r\,\sigma_{normal}\,\sigma_{variant}}
-$$
-
-**Example (carbon monoxide):** with σ_normal = 0.0327, σ_variant = 0.0319 and r = 0.991:
-
-```
-sqrt(0.0327^2 + 0.0319^2 - 2 * 0.991 * 0.0327 * 0.0319) ≈ 0.0045
-```
-
-Without the correlation (r = 0) it would be sqrt(0.0327² + 0.0319²) ≈ 0.046, so taking r into account makes the uncertainty about 10 times smaller. (The exact result depends on all the decimals of r, which is why the code uses the unrounded values.)
-
-When r is close to 1, the uncertainty of the difference becomes much smaller, because the shared ups and downs cancel out when subtracting.
-
-### Is it significant?
-
-The number of sigmas tells how far the difference is from 0, compared to its uncertainty:
-
-```
-n_sigma = difference / uncertainty of difference
-```
-
-$$
-n_\sigma = \frac{\Delta}{\sigma_\Delta}
-$$
-
-**Example (carbon monoxide):** 0.0323 / 0.0045 ≈ **7.15**, which is bigger than 3, so it is significant.
-
-In this analysis, **an asymmetry is called significant if n_sigma is bigger than 3**.
-
-### Asymmetry in %
-
-To compare molecules with very different amounts, the asymmetry is also given as a percentage:
-
-```
-asymmetry (%) = difference / (average(normal) + average(variant)) * 100
-
-uncertainty of asymmetry (%) = uncertainty of difference / (average(normal) + average(variant)) * 100
-```
-
-$$
-A = \frac{\bar{n}_{normal} - \bar{n}_{variant}}{\bar{n}_{normal} + \bar{n}_{variant}} \times 100\%
-\qquad
-\sigma_A = \frac{\sigma_\Delta}{\bar{n}_{normal} + \bar{n}_{variant}} \times 100\%
-$$
-
-**Example (carbon monoxide):** 0.0323 / (19.9495 + 19.9172) × 100 = 0.0323 / 39.87 × 100 ≈ **0.081%**, with uncertainty 0.0045 / 39.87 × 100 ≈ **0.011%**.
+**Method:** The normal molecule is compared with its variant (for example carbon monoxide with carbon-13 monoxide) by taking the difference between their averages. If there is no asymmetry, the difference should be close to 0. The normal molecule and its variant come from the same events, so they go up and down together from file to file. The program measures this with the correlation r between their 10 file averages (r = 1 means they always change together), and uses it to get the uncertainty of the difference. Then it counts how many uncertainties ("sigmas") the difference is away from 0. **An asymmetry is called significant if it is more than 3 sigma.** To compare molecules with very different amounts, the difference is also given as a percentage of the total (normal + variant).
 
 ### Results
 
@@ -242,10 +125,92 @@ $$
 
 ### Conclusion
 
-In all pairs the normal molecule is a bit more common than its variant. For **water** (10.1 sigma),**methane** (8.4 sigma), **carbon monoxide** (7.2 sigma), and  this difference is bigger than 3 sigma, so there is a significant asymmetry. For **nitric oxide**, **ethylene** and **ozone** the difference is smaller than 2 sigma, so it could just be a random fluctuation and we **can't** say there is an asymmetry.
+In all pairs the normal molecule is a bit more common than its variant. For **water** (10.1 sigma), **methane** (8.4 sigma) and **carbon monoxide** (7.2 sigma) the difference is bigger than 3 sigma, so there is a significant asymmetry. For **nitric oxide**, **ethylene** and **ozone** the difference is smaller than 2 sigma, so it could just be a random fluctuation and we **can't** say there is an asymmetry.
 
 ---
 
 ## Question 3: asymmetry as a function of momentum
 
-This question will be answered next week. The current code only uses the molecule ID (4th column) and does not use the momentum values (`px`, `py`, `pz`). 
+**File:** `final code practical.py`, which saves the figures.
+
+**Method:** The momentum of every molecule is calculated from `px`, `py` and `pz`, and the molecules are split into bins of momentum: 0, 0.5, 1, 1.5, 2, 2.5, 3, 4, 6, 8 and everything above 8 (units 10⁻²³ kg·m/s). In each bin, the asymmetry between the normal and the variant molecule (their difference divided by their sum) is calculated separately in each of the 10 files. The point in the plot is the average of the 10 files, and the error bar is the statistical uncertainty of each bin, taken as the standard deviation of the 10 files. I used the standard deviation here, and not the error on the mean (about 3 times smaller), because it shows how much the asymmetry changes between files, which is the more careful choice when deciding whether a bin is really different from zero.
+
+### Results
+
+![Asymmetry vs momentum](All%20IDs%20-%20asymmetry%20as%20a%20fucntion%20of%20mometu<REST-OF-FILE-NAME>)
+
+Each panel is one pair. The blue points are the asymmetry in each bin (vertical bar = statistical uncertainty, horizontal bar = bin width). The orange band is the overall asymmetry with its uncertainty, the dashed line is A = 0, and the green line is a straight-line fit through the points from 0 to 8.
+
+The slope of the fit tells if the asymmetry changes with momentum. In every pair it is consistent with 0 (less than 1.5 sigma):
+
+| Pair | Slope of the fit (per 10⁻²³ kg·m/s) | Sigma from 0 |
+|---|---:|---:|
+| Carbon monoxide / Carbon-13 monoxide | +0.0002 ± 0.0002 | 1.3 |
+| Nitric oxide / Ionised NO | +0.0004 ± 0.0004 | 0.9 |
+| Water / Heavy water | +0.0004 ± 0.0009 | 0.5 |
+| Methane / Methyl ion | +0.0004 ± 0.0012 | 0.3 |
+| Ethylene / Ionised ethylene | +0.0005 ± 0.0030 | 0.1 |
+| Ozone / Superoxide anion | -0.0062 ± 0.0172 | 0.4 |
+
+**What I see:** For carbon monoxide, water and methane the points stay slightly above 0 in almost every bin and follow the orange band (the overall asymmetry), so the asymmetry is the same at low and high momentum. For nitric oxide, ethylene and ozone the points scatter around 0 within their large error bars. The error bars get bigger at high momentum and for the rare molecules because there are fewer molecules in those bins.
+
+### Momentum spectrum (dN/dP)
+
+**What I did:** To check whether the normal and the variant molecule move in the same way, I also plotted how many molecules there are per event for each unit of momentum (dN/dP), for both molecules of every pair (blue = normal, red = variant, log scale). The open last bin (P > 8) is not shown.
+
+![Momentum spectrum](All%20IDS%20-%20mometum%20distribution.jpeg)
+
+**What I see:**
+- In every pair the blue and red points lie on top of each other, so the normal and the variant molecule have the same momentum spectrum within the uncertainties. This agrees with the asymmetry not depending on momentum.
+- Most molecules have a low momentum. The spectrum goes up to a maximum at about P = 0.5 to 2 and then falls towards higher momentum.
+- In every pair, the points between P = 2.5 and 4 have bigger error bars than their neighbours. Since the error bar is the spread between the 10 files, this means that the files do not agree with each other in this range.
+
+### Why are the error bars big between P = 2.5 and 4?
+
+I looked at this together with my group. We compared the number of molecules per event in each momentum bin, file by file. Files 1 to 9 are very similar to each other, but **file 10 is different**. Example for methane / methyl ion (molecules per event in each bin):
+
+| P bin | 0–0.5 | 0.5–1 | 1–1.5 | 1.5–2 | 2–2.5 | 2.5–3 | 3–4 | 4–6 | 6–8 | > 8 | Total |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| File 1 | 0.0158 | 0.0522 | 0.0539 | 0.0474 | 0.0393 | 0.0323 | 0.0506 | 0.0682 | 0.0446 | 0.1473 | 0.552 |
+| File 10 | 0.0004 | 0.0067 | 0.0219 | 0.043 | 0.0671 | 0.0909 | 0.21 | 0.1075 | 0.0018 | 0.0005 | 0.550 |
+
+- The **total** number of molecules per event in file 10 is the same as in the other files (0.550 against 0.552).
+- But the molecules in file 10 have **higher momentum**: there are fewer molecules at low momentum and more around P = 2.5 to 4.
+- I do not know the reason for this difference.
+
+Without file 10, the error bars of the spectrum are much smaller:
+
+![Momentum spectrum without file 10](All%20IDs%20momentum%20distribution%20-%20no%20file%2010.png)
+
+**Decision:** I kept all 10 files in the final analysis. File 10 has the same number of molecules per event as the others, so it is fine for the average counts and the overall asymmetry. It only makes the error bars of the momentum plots larger, and this is a limitation of the analysis.
+
+---
+
+## Do you see any asymmetry?
+
+**Short answer:** yes, a small one for three of the six pairs, and it does not depend on momentum.
+
+**1. Overall asymmetry (question 2)**
+
+| Result | Pairs | Why |
+|---|---|---|
+| Asymmetry seen (more than 3 sigma) | Water / Heavy water (10.1σ), Methane / Methyl ion (8.4σ), Carbon monoxide / Carbon-13 monoxide (7.2σ) | The normal molecule is produced slightly more often than its variant. |
+| No asymmetry seen (less than 2 sigma) | Nitric oxide / Ionised NO (1.7σ), Ethylene / Ionised ethylene (0.9σ), Ozone / Superoxide anion (0.5σ) | The difference is as small as a random fluctuation. |
+
+In all six pairs the normal molecule is a bit more common, but only the three above are significant. The effect is small: about 1% for water and methane, and 0.08% for carbon monoxide.
+
+**2. Asymmetry as a function of momentum (question 3)**
+
+- **The slope of the fit** is consistent with 0 for every pair. The largest is carbon monoxide, with only 1.3 sigma.
+- **The points in each bin** agree with the overall asymmetry of their pair within their error bars, so the asymmetry is the same at low and at high momentum.
+- **Water has two bins** (0.5–1 and 3–4) that are more than 3 sigma from zero. This is only because the overall water asymmetry is not zero, not because it changes with momentum.
+- **The momentum spectra** of the normal and the variant molecule are the same within the uncertainties, which agrees with this.
+
+**Conclusion:** the asymmetry exists for water, methane and carbon monoxide, but it is a small constant effect that does not change with momentum. For nitric oxide, ethylene and ozone we cannot say that there is an asymmetry.
+
+## Limitations
+
+- Pairs with very few molecules (ozone / superoxide) have large uncertainties.
+- A momentum bin is left off the plot if it has no error bar (fewer than 2 sub-samples with molecules in it).
+- File 10 has a different momentum distribution than the other nine files, for an unknown reason. It makes the error bars of the momentum plots bigger.
+- A slope consistent with zero does not prove that the asymmetry is independent of momentum (it could go up and then down). That is why the points in each bin are also compared with the overall asymmetry.

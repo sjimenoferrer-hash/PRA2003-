@@ -6,6 +6,7 @@
 This is a chemistry-themed exercise simulating molecular emissions in a combustion reaction. Each file represents a single simulation of molecular species produced during combustion at high temperatures.
 
 ## Input Structure
+Each file contains around 500k events, therefore this code analyses 5 million simulated combustion events in total for 6 molecular species, each one as a normal molecule and its variant. 
 Each input file follows this format:
 **Header line** (first line of each event) it contains:
   - **Event ID**: the ID of the experiment or simulation run

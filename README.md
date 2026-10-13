@@ -77,7 +77,7 @@ All scripts follow the same steps:
 
 ---
 
-## Question 1: average counts and uncertainties
+## Question 1: Average counts and uncertainties
 
 **File:** `week 4 deliverable.py` (the week 3 script gives the same calculation for one file).
 
@@ -106,7 +106,7 @@ This table shows how carbon monoxide is the most common molecule, with about 20 
 
 ---
 
-## Question 2: asymmetry between the normal and the variant molecule
+## Question 2: Asymmetry between the normal and the variant molecule
 
 **File:** `week 4 deliverable.py`
 
@@ -129,7 +129,7 @@ In all pairs the normal molecule is a bit more common than its variant. For **wa
 
 ---
 
-## Question 3: asymmetry as a function of momentum
+## Question 3: Asymmetry as a function of momentum
 
 **File:** `final code practical.py`, which saves the figures.
 
@@ -137,7 +137,7 @@ In all pairs the normal molecule is a bit more common than its variant. For **wa
 
 ### Results
 
-![Asymmetry vs momentum](All%20IDs%20-%20asymmetry%20as%20a%20fucntion%20of%20mometu<REST-OF-FILE-NAME>)
+![Asymmetry vs momentum](All%20IDs%20-%20All%20IDs%20-%20asymmetry%20as%20a%20function%20of%20momentum.jpeg)
 
 Each panel is one pair. The blue points are the asymmetry in each bin (vertical bar = statistical uncertainty, horizontal bar = bin width). The orange band is the overall asymmetry with its uncertainty, the dashed line is A = 0, and the green line is a straight-line fit through the points from 0 to 8.
 
@@ -160,53 +160,33 @@ The slope of the fit tells if the asymmetry changes with momentum. In every pair
 
 ![Momentum spectrum](All%20IDS%20-%20mometum%20distribution.jpeg)
 
-**What I see:**
+**What was observed**
 - In every pair the blue and red points lie on top of each other, so the normal and the variant molecule have the same momentum spectrum within the uncertainties. This agrees with the asymmetry not depending on momentum.
 - Most molecules have a low momentum. The spectrum goes up to a maximum at about P = 0.5 to 2 and then falls towards higher momentum.
 - In every pair, the points between P = 2.5 and 4 have bigger error bars than their neighbours. Since the error bar is the spread between the 10 files, this means that the files do not agree with each other in this range.
 
 ### Why are the error bars big between P = 2.5 and 4?
 
-I looked at this together with my group. We compared the number of molecules per event in each momentum bin, file by file. Files 1 to 9 are very similar to each other, but **file 10 is different**. Example for methane / methyl ion (molecules per event in each bin):
+I looked at this together with my group. We compared the number of molecules per event in each momentum bin, file by file. When we were doing this, we noticed Files 1 to 9 were very similar to each other, but **file 10 was very different**. Example for methane / methyl ion (molecules per event in each bin):
 
 | P bin | 0–0.5 | 0.5–1 | 1–1.5 | 1.5–2 | 2–2.5 | 2.5–3 | 3–4 | 4–6 | 6–8 | > 8 | Total |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | File 1 | 0.0158 | 0.0522 | 0.0539 | 0.0474 | 0.0393 | 0.0323 | 0.0506 | 0.0682 | 0.0446 | 0.1473 | 0.552 |
 | File 10 | 0.0004 | 0.0067 | 0.0219 | 0.043 | 0.0671 | 0.0909 | 0.21 | 0.1075 | 0.0018 | 0.0005 | 0.550 |
 
-- The **total** number of molecules per event in file 10 is the same as in the other files (0.550 against 0.552).
-- But the molecules in file 10 have **higher momentum**: there are fewer molecules at low momentum and more around P = 2.5 to 4.
-- I do not know the reason for this difference.
+- The total number of molecules per event in file 10 is the same as in the other files (0.550 against 0.552).
+- But the molecules in file 10 have higher momentum: there are fewer molecules at low momentum and more around P = 2.5 to 4.
+- We notice this was different but we do not know the reason for it.
 
 Without file 10, the error bars of the spectrum are much smaller:
 
 ![Momentum spectrum without file 10](All%20IDs%20momentum%20distribution%20-%20no%20file%2010.png)
 
-**Decision:** I kept all 10 files in the final analysis. File 10 has the same number of molecules per event as the others, so it is fine for the average counts and the overall asymmetry. It only makes the error bars of the momentum plots larger, and this is a limitation of the analysis.
+**Decision:** We kept all 10 files in the final analysis. File 10 has the same number of molecules per event as the others, so it is fine for the average counts and the overall asymmetry. It only makes the error bars of the momentum plots larger, and this is a limitation of the analysis.
 
 ---
 
-## Do you see any asymmetry?
-
-**Short answer:** yes, a small one for three of the six pairs, and it does not depend on momentum.
-
-**1. Overall asymmetry (question 2)**
-
-| Result | Pairs | Why |
-|---|---|---|
-| Asymmetry seen (more than 3 sigma) | Water / Heavy water (10.1σ), Methane / Methyl ion (8.4σ), Carbon monoxide / Carbon-13 monoxide (7.2σ) | The normal molecule is produced slightly more often than its variant. |
-| No asymmetry seen (less than 2 sigma) | Nitric oxide / Ionised NO (1.7σ), Ethylene / Ionised ethylene (0.9σ), Ozone / Superoxide anion (0.5σ) | The difference is as small as a random fluctuation. |
-
-In all six pairs the normal molecule is a bit more common, but only the three above are significant. The effect is small: about 1% for water and methane, and 0.08% for carbon monoxide.
-
-**2. Asymmetry as a function of momentum (question 3)**
-
-- **The slope of the fit** is consistent with 0 for every pair. The largest is carbon monoxide, with only 1.3 sigma.
-- **The points in each bin** agree with the overall asymmetry of their pair within their error bars, so the asymmetry is the same at low and at high momentum.
-- **Water has two bins** (0.5–1 and 3–4) that are more than 3 sigma from zero. This is only because the overall water asymmetry is not zero, not because it changes with momentum.
-- **The momentum spectra** of the normal and the variant molecule are the same within the uncertainties, which agrees with this.
-
-**Conclusion:** the asymmetry exists for water, methane and carbon monoxide, but it is a small constant effect that does not change with momentum. For nitric oxide, ethylene and ozone we cannot say that there is an asymmetry.
+**Conclusion:** The asymmetry exists for water, methane and carbon monoxide, but it is a small constant effect that does not change with momentum. For nitric oxide, ethylene and ozone we cannot say that there is an asymmetry.
 
 ## Limitations
 

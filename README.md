@@ -137,7 +137,7 @@ In all pairs the normal molecule is a bit more common than its variant. For **wa
 
 ### Results
 
-![Asymmetry vs momentum](All%20IDs%20-%20All%20IDs%20-%20asymmetry%20as%20a%20function%20of%20momentum.jpeg)
+![Asymmetry vs momentum](All%20IDs%20-%20asymmetry%20as%20a%20function%20of%20momentum.jpeg)
 
 Each panel is one pair. The blue points are the asymmetry in each bin (vertical bar = statistical uncertainty, horizontal bar = bin width). The orange band is the overall asymmetry with its uncertainty, the dashed line is A = 0, and the green line is a straight-line fit through the points from 0 to 8.
 

@@ -11,11 +11,11 @@ Each one contains around 500k events, therefore this code analyses 5 million sim
 Each input file follows this format:
 **Header line** (first line of each event) it contains:
   - **Event ID**: the ID of the experiment or simulation run
-  - **Number of molecules tracked**: the total number of molecules observed in this run
+  - **Total number of molecules**: molecules observed in this run
 
 **Data lines** (there is one per molecule, following the header):
 - **3D momentum components**: `px`, `py`, `pz` (in units of 10⁻²³ kg·m/s)
-- **Molecule/Isotope ID**: an integer ID identifying the molecule or isotope
+- **Molecule ID**: an integer ID identifying the molecule or isotope
 
 ---
 **Goal: Answer the following questions**

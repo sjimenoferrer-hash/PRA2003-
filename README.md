@@ -48,7 +48,7 @@ To run:
 | `week 3 deliverable.py` | Reads one data file (the user types the file name) and calculates the average count of each molecule per event and its statistical uncertainty. |
 | `week 4 deliverable.py` | Runs all 10 datasets combined. Calculates the average count of each molecule per event with the uncertainty from the sub-sampling method (each file is one sub-sample), and checks the asymmetry between each normal molecule and its variant. **Answers questions 1 and 2.** |
 | `final code practical.py` | Calculates the asymmetry as a function of momentum and saves the figure. **Answers question 3.** |
-| `All IDs - asymmetry as a fucntion of mometu<REST-OF-FILE-NAME>` | Figure with the asymmetry as a function of momentum, one panel per pair. |
+| `All IDs - All IDs - asymmetry as a function of momentum.jpeg` | Figure with the asymmetry as a function of momentum, one panel per pair. |
 | `All IDS - mometum distribution.jpeg`, `All IDs momentum distribution - no file 10.png` | Figures with the momentum spectrum (dN/dP) of the normal and the variant molecule, with and without the file that differs. |
 | `README.md` | This file. |
 

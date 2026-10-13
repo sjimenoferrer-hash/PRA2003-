@@ -102,7 +102,7 @@ All scripts follow the same steps:
 | 3334 | Ozone (O3) | 5482 | 0.001187 | 0.000042 |
 | -3334 | Superoxide anion (O2-) | 5318 | 0.001152 | 0.000051 |
 
-**What this means:** carbon monoxide is the most common molecule, with about 20 per event. Ozone and superoxide are the rarest, with only about 1 in every 1000 events.
+This table shows how carbon monoxide is the most common molecule, with about 20 per event. Whereas, ozone and superoxide are the rarest, with only about 1 in every 1000 events.
 
 ---
 
